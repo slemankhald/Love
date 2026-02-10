@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="ckb" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بۆ سارا: تۆ دەبیتە ڤالەنتاینەکەی من؟</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:wght@400;700&family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Scheherazade New', 'Noto Naskh Arabic', serif;
+            background: linear-gradient(135deg, #ffafbd, #ffc3a0);
+            color: #5a3d5c;
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            direction: rtl;
+        }
+        
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            position: relative;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.5s ease;
+        }
+        
+        .hearts-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .heart {
+            position: absolute;
+            color: rgba(255, 105, 180, 0.7);
+            font-size: 20px;
+            opacity: 0;
+            animation: floatUp 6s linear infinite;
+        }
+        
+        .header {
+            position: relative;
+            z-index: 2;
+            margin-bottom: 30px;
+            padding: 20px;
+        }
+        
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4.2rem;
+            color: #d63384;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            line-height: 1.3;
+        }
+        
+        .name-highlight {
+            color: #ff1493;
+            text-decoration: underline;
+            text-shadow: 0 0 10px rgba(255, 20, 147, 0.3);
+            animation: pulse 2s infinite;
+            font-weight: bold;
+        }
+        
+        .subtitle {
+            font-family: 'Playfair Display', 'Scheherazade New', serif;
+            font-size: 1.8rem;
+            color: #8a4b8f;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .english-translation {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 1.2rem;
+            color: #666;
+            margin-top: 10px;
+            font-style: italic;
+            direction: ltr;
+        }
+        
+        .main-content {
+            position: relative;
+            z-index: 2;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .message {
+            font-size: 1.5rem;
+            line-height: 2.2;
+            margin-bottom: 30px;
+            background-color: rgba(255, 240, 245, 0.7);
+            padding: 25px;
+            border-radius: 15px;
+            border-right: 5px solid #ff69b4;
+            text-align: right;
+            font-weight: 500;
+        }
+        
+        .message-english {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-top: 25px;
+            padding: 20px;
+            background-color: rgba(255, 250, 252, 0.9);
+            border-radius: 10px;
+            border-left: 3px solid #ff69b4;
+            text-align: left;
+            direction: ltr;
+        }
+        
+        .heart-icon {
+            color: #ff1493;
+            margin: 0 10px;
+            animation: heartbeat 1.5s infinite;
+        }
+        
+        .photo-placeholder {
+            width: 200px;
+            height: 200px;
+            margin: 20px auto;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ffafbd, #ffc3a0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            color: white;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            border: 8px solid white;
+            position: relative;
+            overflow: hidden;
+            transition: transform 1s ease, box-shadow 1s ease;
+        }
+        
+        .photo-placeholder::after {
+            content: "س";
+            position: absolute;
+            font-size: 8rem;
+            font-family: 'Scheherazade New', serif;
+            color: rgba(255, 255, 255, 0.3);
+            font-weight: bold;
+        }
+        
+        .options {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 18px 40px;
+            font-size: 1.8rem;
+            font-family: 'Dancing Script', 'Scheherazade New', cursive;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            min-width: 180px;
+            font-weight: bold;
+        }
+        
+        .btn-yes {
+            background: linear-gradient(to left, #ff6b6b, #ff8e8e);
+            color: white;
+        }
+        
+        .btn-no {
+            background: linear-gradient(to left, #a8a8a8, #c9c9c9);
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .btn:active {
+            transform: translateY(-2px);
+        }
+        
+        .btn-yes:hover {
+            background: linear-gradient(to left, #ff5252, #ff7b7b);
+        }
+        
+        .response-message {
+            font-size: 2.5rem;
+            font-family: 'Dancing Script', 'Scheherazade New', cursive;
+            color: #ff1493;
+            margin: 30px 0;
+            min-height: 80px;
+            opacity: 0;
+            transition: opacity 1s ease;
+            font-weight: bold;
+        }
+        
+        .show {
+            opacity: 1 !important;
+        }
+        
+        .footer {
+            margin-top: 30px;
+            font-style: italic;
+            color: #8a4b8f;
+            font-size: 1.1rem;
+            position: relative;
+            z-index: 2;
+            padding: 15px;
+            border-top: 1px dashed #ffafbd;
+        }
+        
+        .personal-touch {
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+            font-family: 'Dancing Script', 'Scheherazade New', cursive;
+            font-size: 1.8rem;
+            color: #ff1493;
+            border: 2px dashed #ffafbd;
+            font-weight: bold;
+        }
+        
+        /* SURPRISE ELEMENTS */
+        .surprise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .surprise-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+            animation: popIn 0.8s ease;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+        
+        .surprise-title {
+            font-size: 3.5rem;
+            color: #ff1493;
+            margin-bottom: 20px;
+            font-family: 'Dancing Script', cursive;
+        }
+        
+        .surprise-text {
+            font-size: 1.8rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            font-family: 'Scheherazade New', serif;
+        }
+        
+        .fireworks-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
+            display: none;
+        }
+        
+        .firework {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #fff;
+        }
+        
+        .love-letter {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            z-index: 1001;
+            max-width: 500px;
+            width: 90%;
+            font-family: 'Scheherazade New', serif;
+            font-size: 1.4rem;
+            line-height: 2;
+            text-align: right;
+            display: none;
+        }
+        
+        .love-letter.show-letter {
+            display: block;
+            animation: letterAppear 1s ease forwards;
+        }
+        
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 998;
+        }
+        
+        .floating-heart {
+            position: absolute;
+            font-size: 2rem;
+            color: #ff1493;
+            opacity: 0;
+        }
+        
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes heartbeat {
+            0% {
+                transform: scale(1);
+            }
+            5% {
+                transform: scale(1.1);
+            }
+            10% {
+                transform: scale(1);
+            }
+            15% {
+                transform: scale(1.1);
+            }
+            20% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes pulse {
+            0% {
+                text-shadow: 0 0 10px rgba(255, 20, 147, 0.3);
+            }
+            50% {
+                text-shadow: 0 0 20px rgba(255, 20, 147, 0.6);
+            }
+            100% {
+                text-shadow: 0 0 10px rgba(255, 20, 147, 0.3);
+            }
+        }
+        
+        @keyframes explode {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(3);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes popIn {
+            0% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            70% {
+                transform: scale(1.1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes letterAppear {
+            0% {
+                transform: translate(-50%, -50%) scale(0) rotate(-10deg);
+                opacity: 0;
+            }
+            70% {
+                transform: translate(-50%, -50%) scale(1.1) rotate(5deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes floatHeart {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes firework {
+            0% {
+                transform: translate(var(--x), var(--initialY));
+                width: var(--initialSize);
+                height: var(--initialSize);
+                opacity: 1;
+            }
+            50% {
+                width: 0.5vmin;
+                height: 0.5vmin;
+            }
+            100% {
+                width: var(--finalSize);
+                height: var(--finalSize);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes fireworkPseudo {
+            0% {
+                transform: translate(-50%, -50%);
+                width: var(--initialSize);
+                height: var(--initialSize);
+                opacity: 1;
+            }
+            50% {
+                width: 0.5vmin;
+                height: 0.5vmin;
+            }
+            100% {
+                width: var(--finalSize);
+                height: var(--finalSize);
+                opacity: 0;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1.5rem;
+            }
+            
+            .message {
+                font-size: 1.3rem;
+                padding: 20px;
+            }
+            
+            .btn {
+                padding: 15px 30px;
+                font-size: 1.5rem;
+                min-width: 150px;
+            }
+            
+            .options {
+                gap: 20px;
+            }
+            
+            .photo-placeholder {
+                width: 150px;
+                height: 150px;
+                font-size: 4rem;
+            }
+            
+            .personal-touch {
+                font-size: 1.5rem;
+            }
+            
+            .surprise-title {
+                font-size: 2.8rem;
+            }
+            
+            .surprise-text {
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2.8rem;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+            
+            .btn {
+                padding: 12px 25px;
+                font-size: 1.3rem;
+                min-width: 130px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="main-container">
+        <div class="hearts-container" id="hearts-container"></div>
+        
+        <div class="header">
+            <h1>بۆ <span class="name-highlight">سارا</span>: تۆ دەبیتە ڤالەنتاینەکەی من؟</h1>
+            <div class="subtitle">پرسیارێکی تایبەت بۆ کەسێکی زۆر تایبەت</div>
+            <div class="english-translation">For Sara: Will You Be My Valentine? - A special question for someone very special</div>
+        </div>
+        
+        <div class="personal-touch">
+            <i class="fas fa-heart heart-icon"></i> ئەم وێبسایتە تەنیا بۆ تۆ دروستکراوە، سارا! <i class="fas fa-heart heart-icon"></i>
+        </div>
+        
+        <div class="main-content">
+            <div class="photo-placeholder" id="sara-photo">
+                <i class="fas fa-heart"></i>
+            </div>
+            
+            <div class="message">
+                <p>خۆشەویستەکەم <span class="name-highlight" style="font-size: 1.6rem;">سارا</span>،</p>
+                <p>لەو کاتەوەی کە یەکمان بینی، تۆ زۆر شادی و دڵخۆشی بۆ ژیانم هێناویت. زەردەخەنەکەت جیهانم ڕوناک دەکات، و خۆشەویستیت دڵم پڕ لە گەرمی دەکات.</p>
+                <p>هەموو ڕۆژێک لەگەڵ تۆ تایبەتە، بەڵام ئەم ڕۆژی ڤالەنتاینە، من دەمەوێت وای لێبکەم سەرنجڕاکێشتر بێت. دەمەوێت ئاهەنگی ئەو کەسە سەرسوڕهێنەرە بگێرم کە تۆیت و چۆن سوپاسگوزارم کە تۆم لە ژیانمدا هەی.</p>
+                <p style="text-align: center; font-weight: bold; margin: 15px 0; font-size: 1.7rem; color: #ff1493;">سارا، تۆ ڕێز لە من دەگری بۆ ئەوەی ببیتە ڤالەنتاینەکەی من؟</p>
+                <p>بەڵێنم دەدەم ڕۆژێکت بۆ دروست بکەم کە هەرگیز بیرت نەچێتەوە، پڕ لە خۆشەویستی، پێکەنین، و یادەوەرییە جوانەکان کە هەتا هەتایە لەبیرمان دەبێت.</p>
+                <p style="text-align: left; margin-top: 15px; direction: ltr;">With all my love,<br>Your admirer</p>
+            </div>
+            
+            <div class="options">
+                <button class="btn btn-yes" id="yes-btn">
+                    <i class="fas fa-heart heart-icon"></i> بەڵێ، سارا! <i class="fas fa-heart heart-icon"></i>
+                </button>
+                <button class="btn btn-no" id="no-btn">لەوانەیە دواتر</button>
+            </div>
+            
+            <div class="response-message" id="response-message"></div>
+        </div>
+        
+        <div class="footer">
+            <p>دروستکراوە بە <i class="fas fa-heart" style="color: #ff1493;"></i> بۆ باشترین کەس لە ژیانمدا، سارا</p>
+        </div>
+    </div>
+    
+    <!-- SURPRISE ELEMENTS (Hidden initially) -->
+    <div class="surprise-overlay" id="surprise-overlay">
+        <div class="surprise-content">
+            <h2 class="surprise-title">سوپاس سارا! 💖</h2>
+            <p class="surprise-text">تۆ دڵخۆشترین کەسم کرد! من زۆر بەختەوەرم کە تۆم لە ژیانمدا هەی! ئەمە باشترین ڤالەنتاینەکەی من دەبێت!</p>
+            <button id="close-surprise" class="btn btn-yes" style="margin-top: 20px;">بینینی نامەی تایبەت</button>
+        </div>
+    </div>
+    
+    <div class="fireworks-container" id="fireworks-container"></div>
+    
+    <div class="floating-hearts" id="floating-hearts"></div>
+    
+    <div class="love-letter" id="love-letter">
+        <h3 style="text-align: center; color: #ff1493; margin-bottom: 20px; font-family: 'Dancing Script', cursive;">نامەیەک بۆ سارا</h3>
+        <p>خۆشەویستەکەم سارا،</p>
+        <p>بەڵێنی تۆ دەدەم کە ڤالەنتاینەکەمان بەڕێزترین و خۆشەویستترین ڕۆژی ژیانت دەکەم. هەموو شتێک بۆ تۆ ئامادە دەکەم کە خۆشی بێت و تۆ دڵخۆش بکات.</p>
+        <p>تەنیا بیرم لە تۆ بکە و بەختەوەری لەگەڵ تۆ بەسەرببەم. ئەمڕۆ و هەموو ڕۆژێکی تر، من هەر بۆ تۆ.</p>
+        <p style="text-align: left; margin-top: 20px; direction: ltr;">Forever yours,<br>Your Valentine</p>
+        <button id="close-letter" class="btn btn-yes" style="margin-top: 20px; font-size: 1.2rem;">داخستنی نامە</button>
+    </div>
+
+    <script>
+        // Create floating hearts
+        const heartsContainer = document.getElementById('hearts-container');
+        const fireworksContainer = document.getElementById('fireworks-container');
+        const floatingHeartsContainer = document.getElementById('floating-hearts');
+        let yesClicked = false;
+        
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤';
+            
+            // Random position and size
+            const size = Math.random() * 25 + 15;
+            const left = Math.random() * 100;
+            const duration = Math.random() * 4 + 6;
+            
+            heart.style.left = `${left}%`;
+            heart.style.fontSize = `${size}px`;
+            heart.style.animationDuration = `${duration}s`;
+            heart.style.animationDelay = `${Math.random() * 2}s`;
+            
+            heartsContainer.appendChild(heart);
+            
+            // Remove heart after animation completes
+            setTimeout(() => {
+                heart.remove();
+            }, duration * 1000);
+        }
+        
+        // Create hearts at intervals
+        setInterval(createHeart, 300);
+        
+        // Initial hearts
+        for(let i = 0; i < 15; i++) {
+            setTimeout(() => createHeart(), i * 200);
+        }
+        
+        // Handle Yes button click - THE BIG SURPRISE!
+        document.getElementById('yes-btn').addEventListener('click', function() {
+            if (yesClicked) return;
+            yesClicked = true;
+            
+            const responseMessage = document.getElementById('response-message');
+            responseMessage.innerHTML = "سارا، تۆ دڵخۆشترین کەسم کرد! من زۆر بەختەوەرم کە تۆم لە ژیانمدا هەی! 💖";
+            responseMessage.classList.add('show');
+            
+            // 1. Make the container shake with excitement
+            const container = document.getElementById('main-container');
+            container.style.transform = 'scale(1.05)';
+            container.style.transition = 'transform 0.3s ease';
+            
+            setTimeout(() => {
+                container.style.transform = 'scale(1)';
+            }, 300);
+            
+            // 2. Create MASSIVE heart explosion
+            createMassiveExplosion();
+            
+            // 3. Transform Sara's photo into a glowing heart
+            const saraPhoto = document.getElementById('sara-photo');
+            saraPhoto.innerHTML = '<i class="fas fa-heart" style="font-size: 6rem; color: #ff1493;"></i>';
+            saraPhoto.style.transform = 'scale(1.5) rotate(360deg)';
+            saraPhoto.style.boxShadow = '0 0 40px rgba(255, 20, 147, 0.8)';
+            saraPhoto.style.background = 'radial-gradient(circle, #ffafbd, #ff1493)';
+            
+            // 4. Change button text and appearance
+            this.innerHTML = "<i class='fas fa-heart heart-icon'></i> سارا وتی بەڵێ! من بەختەوەرم! <i class='fas fa-heart heart-icon'></i>";
+            this.style.background = "linear-gradient(to left, #4CAF50, #8BC34A)";
+            this.style.fontSize = "1.5rem";
+            this.style.padding = "20px 30px";
+            
+            // 5. Hide the No button
+            document.getElementById('no-btn').style.display = 'none';
+            
+            // 6. Play celebration sound
+            playCelebrationSound();
+            
+            // 7. Create floating hearts with Sara's name
+            createSaraHearts();
+            
+            // 8. Start fireworks after 1 second
+            setTimeout(() => {
+                startFireworks();
+                
+                // 9. Show surprise overlay after 2 seconds
+                setTimeout(() => {
+                    document.getElementById('surprise-overlay').style.display = 'flex';
+                    
+                    // 10. Create floating hearts everywhere
+                    createFloatingHearts();
+                }, 2000);
+            }, 1000);
+        });
+        
+        // Handle No button hover (make it move away)
+        const noBtn = document.getElementById('no-btn');
+        noBtn.addEventListener('mouseover', function() {
+            if (yesClicked) return;
+            
+            // Randomly move the button to a different position
+            const x = Math.random() * (window.innerWidth - 200);
+            const y = Math.random() * (window.innerHeight - 100);
+            
+            this.style.position = 'fixed';
+            this.style.left = `${x}px`;
+            this.style.top = `${y}px`;
+            this.style.transition = 'all 0.3s ease';
+            
+            // Change the text sometimes
+            const messages = ['تۆ دڵنیایت، سارا؟', 'دووبارە بیربکەرەوە!', 'تکایە، سارا?', 'من دەنگۆزین', 'هەلێکم بدە، سارا!'];
+            const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+            this.innerHTML = randomMsg;
+            
+            // Reset after a short time
+            setTimeout(() => {
+                if (!yesClicked) {
+                    this.innerHTML = 'لەوانەیە دواتر';
+                }
+            }, 1000);
+        });
+        
+        // Create MASSIVE explosion effect
+        function createMassiveExplosion() {
+            const container = document.querySelector('.container');
+            
+            for(let i = 0; i < 200; i++) {
+                setTimeout(() => {
+                    const explosion = document.createElement('div');
+                    explosion.classList.add('heart');
+                    explosion.innerHTML = '❤';
+                    
+                    // Random position
+                    const x = Math.random() * container.offsetWidth;
+                    const y = Math.random() * container.offsetHeight;
+                    
+                    explosion.style.left = `${x}px`;
+                    explosion.style.top = `${y}px`;
+                    
+                    // Random color
+                    const colors = ['#ff1493', '#ff69b4', '#ffafbd', '#ffc3a0', '#d63384', '#ff0000', '#ff00ff'];
+                    explosion.style.color = colors[Math.floor(Math.random() * colors.length)];
+                    
+                    // Random size
+                    const size = Math.random() * 40 + 20;
+                    explosion.style.fontSize = `${size}px`;
+                    
+                    // Random animation
+                    explosion.style.animation = `explode ${Math.random() * 0.5 + 0.5}s linear forwards`;
+                    
+                    container.appendChild(explosion);
+                    
+                    // Remove after animation
+                    setTimeout(() => {
+                        explosion.remove();
+                    }, 1000);
+                }, i * 10);
+            }
+        }
+        
+        // Create hearts that spell "سارا" (Sara in Arabic script)
+        function createSaraHearts() {
+            const container = document.querySelector('.container');
+            
+            // Create hearts spelling "سارا"
+            const letters = ['س', '❤', 'ا', '❤', 'ر', '❤', 'ا'];
+            for(let i = 0; i < letters.length; i++) {
+                setTimeout(() => {
+                    const letterHeart = document.createElement('div');
+                    letterHeart.classList.add('heart');
+                    letterHeart.innerHTML = letters[i];
+                    letterHeart.style.color = '#ff1493';
+                    letterHeart.style.fontSize = '50px';
+                    letterHeart.style.fontWeight = 'bold';
+                    letterHeart.style.zIndex = '10';
+                    
+                    // Position in a line
+                    const left = 15 + (i * 12);
+                    const top = 20;
+                    
+                    letterHeart.style.left = `${left}%`;
+                    letterHeart.style.top = `${top}%`;
+                    letterHeart.style.animation = 'none';
+                    letterHeart.style.opacity = '1';
+                    letterHeart.style.textShadow = '0 0 20px rgba(255, 20, 147, 0.8)';
+                    
+                    container.appendChild(letterHeart);
+                    
+                    // Animate them floating up after a delay
+                    setTimeout(() => {
+                        letterHeart.style.animation = 'floatUp 5s linear forwards';
+                    }, 1000 + (i * 300));
+                }, i * 300);
+            }
+        }
+        
+        // Create floating hearts everywhere
+        function createFloatingHearts() {
+            for(let i = 0; i < 100; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.classList.add('floating-heart');
+                    heart.innerHTML = '❤';
+                    
+                    // Random position
+                    const left = Math.random() * 100;
+                    const size = Math.random() * 30 + 20;
+                    const duration = Math.random() * 4 + 3;
+                    const delay = Math.random() * 2;
+                    
+                    heart.style.left = `${left}%`;
+                    heart.style.fontSize = `${size}px`;
+                    heart.style.animation = `floatHeart ${duration}s linear ${delay}s infinite`;
+                    
+                    // Random color
+                    const colors = ['#ff1493', '#ff69b4', '#ff0000', '#ff00ff'];
+                    heart.style.color = colors[Math.floor(Math.random() * colors.length)];
+                    
+                    floatingHeartsContainer.appendChild(heart);
+                }, i * 100);
+            }
+        }
+        
+        // Start fireworks
+        function startFireworks() {
+            fireworksContainer.style.display = 'block';
+            
+            function createFirework() {
+                const firework = document.createElement('div');
+                firework.classList.add('firework');
+                
+                // Random position
+                const x = Math.random() * window.innerWidth;
+                const y = Math.random() * window.innerHeight;
+                
+                // Random color
+                const colors = ['#ff1493', '#ff69b4', '#ff0000', '#ff00ff', '#ffff00', '#00ffff'];
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                
+                firework.style.left = `${x}px`;
+                firework.style.top = `${y}px`;
+                firework.style.backgroundColor = color;
+                firework.style.boxShadow = `0 0 20px ${color}`;
+                
+                // Animation
+                firework.style.setProperty('--x', `${x}px`);
+                firework.style.setProperty('--initialY', `${y + 100}px`);
+                firework.style.setProperty('--initialSize', '5px');
+                firework.style.setProperty('--finalSize', `${Math.random() * 100 + 50}px`);
+                firework.style.animation = `firework ${Math.random() * 0.5 + 0.5}s linear forwards`;
+                
+                fireworksContainer.appendChild(firework);
+                
+                // Remove after animation
+                setTimeout(() => {
+                    firework.remove();
+                }, 1000);
+            }
+            
+            // Create multiple fireworks
+            const fireworkInterval = setInterval(createFirework, 100);
+            
+            // Stop after 10 seconds
+            setTimeout(() => {
+                clearInterval(fireworkInterval);
+            }, 10000);
+        }
+        
+        // Play celebration sound
+        function playCelebrationSound() {
+            // Create a cheerful melody using Web Audio API
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                
+                // Play "Happy" melody
+                const notes = [523.25, 659.25, 783.99, 1046.50, 783.99, 1046.50, 1318.51];
+                notes.forEach((note, index) => {
+                    playNote(audioContext, note, index * 0.15);
+                });
+                
+                // Add a final chord
+                setTimeout(() => {
+                    playChord(audioContext, [523.25, 659.25, 783.99], 0);
+                }, 1200);
+            } catch (e) {
+                // If audio context fails, just continue silently
+                console.log("Audio not supported");
+            }
+        }
+        
+        function playNote(audioContext, frequency, startTime) {
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime + startTime);
+            
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime + startTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + startTime + 0.5);
+            
+            oscillator.start(audioContext.currentTime + startTime);
+            oscillator.stop(audioContext.currentTime + startTime + 0.5);
+        }
+        
+        function playChord(audioContext, frequencies, startTime) {
+            frequencies.forEach(freq => {
+                playNote(audioContext, freq, startTime);
+            });
+        }
+        
+        // Add some initial Sara hearts
+        window.addEventListener('load', function() {
+            // Add a special heart with "س" for Sara
+            setTimeout(() => {
+                const saraHeart = document.createElement('div');
+                saraHeart.classList.add('heart');
+                saraHeart.innerHTML = 'س';
+                saraHeart.style.color = '#ff1493';
+                saraHeart.style.fontSize = '35px';
+                saraHeart.style.fontWeight = 'bold';
+                saraHeart.style.left = '50%';
+                saraHeart.style.animationDuration = '8s';
+                heartsContainer.appendChild(saraHeart);
+            }, 500);
+        });
+        
+        // Close surprise overlay and show love letter
+        document.getElementById('close-surprise').addEventListener('click', function() {
+            document.getElementById('surprise-overlay').style.display = 'none';
+            document.getElementById('love-letter').classList.add('show-letter');
+        });
+        
+        // Close love letter
+        document.getElementById('close-letter').addEventListener('click', function() {
+            document.getElementById('love-letter').classList.remove('show-letter');
+            
+            // Create one final explosion
+            setTimeout(() => {
+                createMassiveExplosion();
+            }, 500);
+        });
+    </script>
+</body>
+</html>
